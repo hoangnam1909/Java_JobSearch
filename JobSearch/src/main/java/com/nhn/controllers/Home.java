@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Lightning
  */
 @Controller
-public class HomeController { 
+public class Home {
     @RequestMapping("/")
     public String index(Model model) {
         return "index";

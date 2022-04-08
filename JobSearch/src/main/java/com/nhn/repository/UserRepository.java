@@ -6,6 +6,7 @@
 package com.nhn.repository;
 
 import com.nhn.pojo.User;
+
 import java.util.List;
 
 /**
@@ -15,12 +16,6 @@ import java.util.List;
 public interface UserRepository {
 
     User getUserById(int userId);
-
     boolean addUser(User user);
-
-    boolean removeUser(User user);
-
     List<User> getUsers(String username);
-
-    List<User> getAllUsers();
 }

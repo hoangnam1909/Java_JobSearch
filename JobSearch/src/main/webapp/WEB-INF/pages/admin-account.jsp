@@ -9,7 +9,7 @@
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/admin-account/add"/>">Thêm</a>
+        <a class="nav-link" href="<c:url value="/admin/admin-account/add-account"/>">Thêm</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<c:url value="/admin/admin-account/edit"/>">Sửa</a>

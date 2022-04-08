@@ -16,14 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author Lightning
  */
 @Controller
-public class LoginController {
+public class Login {
     @Autowired
     private UserService userService;
     
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("user", this.userService.getUserById(1));
-        
         return "login";
     }
 }

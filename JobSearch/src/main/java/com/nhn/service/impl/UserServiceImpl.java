@@ -8,34 +8,59 @@ package com.nhn.service.impl;
 import com.nhn.pojo.User;
 import com.nhn.repository.UserRepository;
 import com.nhn.service.UserService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
  * @author Lightning
  */
-@Service
+@Service("userDetailsService")
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public User getUserById(int id) {
-        return userRepository.getUserById(id);
+        return this.userRepository.getUserById(id);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean addUser(User user) {
+        String pass = user.getPassword();
+        user.setPassword(this.passwordEncoder.encode(pass));
+        return this.userRepository.addUser(user);
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+    public List<User> getUsers(String username) {
+        return this.userRepository.getUsers(username);
     }
-    
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        List<User> users = this.getUsers(username);
+        if (users.isEmpty())
+            throw new UsernameNotFoundException("User does not exist!!!");
+
+        User user = users.get(0);
+
+        Set<GrantedAuthority> auth = new HashSet<>();
+        auth.add(new SimpleGrantedAuthority(user.getUserType()));
+
+        return new org.springframework.security.core
+                .userdetails.User(user.getUsername(), user.getPassword(), auth);
+    }
+
 }

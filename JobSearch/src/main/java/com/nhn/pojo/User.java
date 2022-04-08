@@ -5,26 +5,15 @@
  */
 package com.nhn.pojo;
 
-import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.Collection;
 
 /**
  *
@@ -42,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone"),
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar"),
+    @NamedQuery(name = "User.findByUserType", query = "SELECT u FROM User u WHERE u.userType = :userType"),
     @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName"),
     @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")})
 public class User implements Serializable {
@@ -78,11 +68,14 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "active")
     private boolean active;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 300)
+    @Size(max = 100)
     @Column(name = "avatar")
     private String avatar;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "userType")
+    private String userType;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -93,15 +86,15 @@ public class User implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "lastName")
     private String lastName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postedByUser", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postedByUser")
     private Collection<JobPost> jobPostCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Employer> employerCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<PersonalDetails> personalDetailsCollection;
-    @JoinColumn(name = "userType", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usertypes userType;
+    @Transient
+    @JsonIgnore
+    private String confirmPassword;
 
     public User() {
     }
@@ -110,14 +103,14 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String username, String password, String email, String phone, boolean active, String avatar, String firstName, String lastName) {
+    public User(Integer id, String username, String password, String email, String phone, boolean active, String userType, String firstName, String lastName) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.phone = phone;
         this.active = active;
-        this.avatar = avatar;
+        this.userType = userType;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -178,6 +171,14 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -192,6 +193,14 @@ public class User implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     @XmlTransient
@@ -219,14 +228,6 @@ public class User implements Serializable {
 
     public void setPersonalDetailsCollection(Collection<PersonalDetails> personalDetailsCollection) {
         this.personalDetailsCollection = personalDetailsCollection;
-    }
-
-    public Usertypes getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Usertypes userType) {
-        this.userType = userType;
     }
 
     @Override

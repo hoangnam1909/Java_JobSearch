@@ -6,8 +6,9 @@
 package com.nhn.service;
 
 import com.nhn.pojo.User;
-import java.util.List;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.List;
 
 /**
  *
@@ -15,5 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 public interface UserService extends UserDetailsService {
     User getUserById(int id);
-    List<User> getAllUsers();
+    boolean addUser(User user);
+    List<User> getUsers(String username);
 }

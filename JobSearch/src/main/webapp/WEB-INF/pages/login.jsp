@@ -11,20 +11,20 @@
 
 <h1 class="text-center text-success">ĐĂNG NHẬP HỆ THỐNG</h1>
 
-<%--<c:if test="${param.error != null}">
+<c:if test="${param.error != null}">
   <div class="alert alert-danger">
     <strong>CÓ LỖI XẢY RA</strong> Vui lòng thử lại.
   </div>
-</c:if>--%>
+</c:if>
 
-<form method="post" action="/">
+<form method="post" action="${action}">
   <div class="form-group">
-    <label for="username">Tài khoản</label>
-    <input type="username" class="form-control" placeholder="Tên tài khoản" name="username" id="username">
+    <label>Tài khoản</label>
+    <input type="username" class="form-control" placeholder="Tên tài khoản" name="username">
   </div>
   <div class="form-group">
-    <label for="pwd">Mật khẩu</label>
-    <input type="password" class="form-control" placeholder="Nhập mật khẩu" name="password" id="password">
+    <label>Mật khẩu</label>
+    <input type="password" class="form-control" placeholder="Nhập mật khẩu" name="password">
   </div>
   <button type="submit" class="btn btn-primary">Đăng nhập</button>
 </form>

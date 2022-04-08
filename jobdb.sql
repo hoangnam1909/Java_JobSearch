@@ -275,17 +275,15 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `email` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `phone` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `active` bit(1) NOT NULL DEFAULT b'1',
   `avatar` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `userType` int NOT NULL,
+  `userType` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `firstName` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `lastName` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_userType_idx` (`userType`),
-  CONSTRAINT `fk_userType` FOREIGN KEY (`userType`) REFERENCES `usertypes` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -295,32 +293,8 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','admin','admin@gmail.com','123',_binary '','haha',1,'Hoang','Nam'),(2,'ntd','ntd','ntd@gmail.com','13545',_binary '',NULL,1,'Hoang','Anh');
+INSERT INTO `user` VALUES (1,'admin','$2a$12$uq.Pw2EsHna6mJuOjjg3le02vEusLx.c5xZ5Co8BNFhXznmO4iXyG','admin@gmail.com','123',_binary '','haha','1','Hoang','Nam'),(2,'ntd','ntd','ntd@gmail.com','13545',_binary '',NULL,'1','Hoang','Anh');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `usertypes`
---
-
-DROP TABLE IF EXISTS `usertypes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usertypes` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `type` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `usertypes`
---
-
-LOCK TABLES `usertypes` WRITE;
-/*!40000 ALTER TABLE `usertypes` DISABLE KEYS */;
-INSERT INTO `usertypes` VALUES (1,'ADMIN'),(2,'NTD'),(3,'UV');
-/*!40000 ALTER TABLE `usertypes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -332,4 +306,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-06 23:54:01
+-- Dump completed on 2022-04-08 22:49:44
