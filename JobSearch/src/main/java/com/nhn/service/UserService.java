@@ -15,7 +15,9 @@ import java.util.List;
  * @author Lightning
  */
 public interface UserService extends UserDetailsService {
-    User getUserById(int id);
+
+    User getUserById(int userId);
     boolean addUser(User user);
     List<User> getUsers(String username);
+
 }

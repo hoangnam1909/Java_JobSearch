@@ -24,4 +24,5 @@ public class Login {
     public String login(Model model) {
         return "login";
     }
+
 }

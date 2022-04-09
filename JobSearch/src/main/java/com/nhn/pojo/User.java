@@ -7,13 +7,13 @@ package com.nhn.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.io.Serializable;
-import java.util.Collection;
 
 /**
  *
@@ -31,9 +31,7 @@ import java.util.Collection;
     @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone"),
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar"),
-    @NamedQuery(name = "User.findByUserType", query = "SELECT u FROM User u WHERE u.userType = :userType"),
-    @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName"),
-    @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")})
+    @NamedQuery(name = "User.findByUserType", query = "SELECT u FROM User u WHERE u.userType = :userType")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,7 +47,7 @@ public class User implements Serializable {
     private String username;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
@@ -76,24 +74,10 @@ public class User implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "userType")
     private String userType;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "firstName")
-    private String firstName;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "lastName")
-    private String lastName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "postedByUser")
-    private Collection<JobPost> jobPostCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Employer> employerCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<PersonalDetails> personalDetailsCollection;
-    @Transient
     @JsonIgnore
+    @Transient
     private String confirmPassword;
 
     public User() {
@@ -103,7 +87,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String username, String password, String email, String phone, boolean active, String userType, String firstName, String lastName) {
+    public User(Integer id, String username, String password, String email, String phone, boolean active, String userType) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -111,8 +95,6 @@ public class User implements Serializable {
         this.phone = phone;
         this.active = active;
         this.userType = userType;
-        this.firstName = firstName;
-        this.lastName = lastName;
     }
 
     public Integer getId() {
@@ -137,6 +119,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getEmail() {
@@ -177,48 +167,6 @@ public class User implements Serializable {
 
     public void setUserType(String userType) {
         this.userType = userType;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    @XmlTransient
-    public Collection<JobPost> getJobPostCollection() {
-        return jobPostCollection;
-    }
-
-    public void setJobPostCollection(Collection<JobPost> jobPostCollection) {
-        this.jobPostCollection = jobPostCollection;
-    }
-
-    @XmlTransient
-    public Collection<Employer> getEmployerCollection() {
-        return employerCollection;
-    }
-
-    public void setEmployerCollection(Collection<Employer> employerCollection) {
-        this.employerCollection = employerCollection;
     }
 
     @XmlTransient

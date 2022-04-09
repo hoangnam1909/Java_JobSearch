@@ -11,15 +11,6 @@
     <li class="nav-item">
         <a class="nav-link" href="<c:url value="/admin/admin-account/add-account"/>">Thêm</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/admin-account/edit"/>">Sửa</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/admin-account/remove"/>">Xoá</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/admin-account/update"/>">Cập nhật</a>
-    </li>
 </ul>
 
 <table class="table table-striped">
@@ -33,8 +24,8 @@
     <tbody>
         <c:forEach items="${users}" var="u">
             <tr>
-                <td>${u.firstName}</td>
-                <td>${u.lastName}</td>
+                <td>${u.username}</td>
+                <td>${u.password}</td>
                 <td>${u.email}</td>
             </tr>
         </c:forEach>

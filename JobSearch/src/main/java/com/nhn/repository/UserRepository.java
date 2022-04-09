@@ -9,13 +9,10 @@ import com.nhn.pojo.User;
 
 import java.util.List;
 
-/**
- *
- * @author Lightning
- */
 public interface UserRepository {
 
     User getUserById(int userId);
     boolean addUser(User user);
     List<User> getUsers(String username);
+
 }
