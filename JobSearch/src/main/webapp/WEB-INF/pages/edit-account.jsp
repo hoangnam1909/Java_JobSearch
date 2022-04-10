@@ -37,15 +37,15 @@
     </div>
     <div class="form-group">
         <label>Email</label>
-        <form:input path="email" class="form-control" />
+        <form:input path="email" class="form-control" placeholder="${user.email}" />
     </div>
     <div class="form-group">
         <label>Số điện thoại</label>
-        <form:input path="phone" class="form-control" />
+        <form:input path="phone" class="form-control" placeholder="${user.phone}" />
     </div>
     <div class="form-group">
         <label>UserType</label>
-        <form:input path="userType" class="form-control" />
+        <form:input path="userType" class="form-control" placeholder="${user.userType}" />
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Đăng nhập</button>

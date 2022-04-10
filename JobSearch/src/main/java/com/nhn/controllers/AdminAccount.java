@@ -65,11 +65,11 @@ public class AdminAccount {
         return "add-account";
     }
 
-//    @RequestMapping("/admin/admin-account/edit-account")
-//    public String editAccount(Model model) {
-//        model.addAttribute("user", new User());
-//        return "edit-account";
-//    }
+    @RequestMapping("/admin/admin-account/edit-account")
+    public String editAccount(Model model) {
+        model.addAttribute("user", new User());
+        return "edit-account";
+    }
 
 //    @RequestMapping("/admin/admin-account/edit-account/{username}")
 //    public String editAccountGet(Model model,
@@ -80,15 +80,17 @@ public class AdminAccount {
 //        return "edit-account";
 //    }
 
-    @RequestMapping("/admin/admin-account/edit-account")
+    @RequestMapping("/admin/admin-account/edit-account/{id}")
     public String editAccountGetById(Model model,
-                                     @RequestParam(value = "id") int id) {
+                                     @PathVariable(value = "id") int id) {
         User user = new User();
         if (id != 0) {
             user = this.userService.getUserById(id);
         }
+
         model.addAttribute("user", user);
         model.addAttribute("id", id);
+
         return "edit-account";
     }
 }
