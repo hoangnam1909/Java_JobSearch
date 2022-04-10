@@ -11,8 +11,7 @@ import java.util.List;
 
 public interface UserRepository {
 
-    User getUserById(int userId);
+    User getUserById(int id);
     boolean addUser(User user);
     List<User> getUsers(String username);
-
 }

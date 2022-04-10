@@ -33,11 +33,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(int userId) {
-        return null;
+        return this.userRepository.getUserById(userId);
     }
 
     @Override
     public boolean addUser(User user) {
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         return this.userRepository.addUser(user);
     }
 

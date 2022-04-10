@@ -41,12 +41,8 @@ and open the template in the editor.
         <put-attribute name="title" value="Thêm tài khoản" />
         <put-attribute name="content" value="/WEB-INF/pages/add-account.jsp" />
     </definition>
-    <definition name="admin-company" extends="adminLayout">
-        <put-attribute name="title" value="Quản lý công ty" />
-        <put-attribute name="content" value="/WEB-INF/pages/admin-company.jsp" />
-    </definition>
-    <definition name="add-company" extends="adminLayout">
-        <put-attribute name="title" value="Thêm công ty" />
-        <put-attribute name="content" value="/WEB-INF/pages/add-company.jsp" />
+    <definition name="edit-account" extends="adminLayout">
+        <put-attribute name="title" value="Sửa thông tin tài khoản" />
+        <put-attribute name="content" value="/WEB-INF/pages/edit-account.jsp" />
     </definition>
 </tiles-definitions>

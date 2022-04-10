@@ -1,8 +1,18 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Lightning
+  Date: 10/04/2022
+  Time: 3:19 CH
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<h1 class="text-center text-success">THÊM TÀI KHOẢN</h1>
+<h1 class="text-center text-success">CHỈNH SỬA THÔNG TIN TÀI KHOẢN ${user.username}</h1>
+<h1 class="text-center text-success">username ${u.username}</h1>
+<h1 class="text-center text-success">phone ${u.phone}</h1>
+<h1 class="text-center text-success">email ${u.email}</h1>
 
 <c:url value="/admin/admin-account/add-account" var="action" />
 
@@ -15,7 +25,7 @@
 <form:form action="${action}" method="post" modelAttribute="user">
     <div class="form-group">
         <label>Tên đăng nhập</label>
-        <form:input path="username" class="form-control" />
+        <form:input path="username" class="form-control" placeholder="${user.username}" />
     </div>
     <div class="form-group">
         <label>Mật khẩu</label>

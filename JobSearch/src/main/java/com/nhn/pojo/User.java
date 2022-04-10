@@ -5,7 +5,12 @@
  */
 package com.nhn.pojo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -169,15 +174,6 @@ public class User implements Serializable {
         this.userType = userType;
     }
 
-    @XmlTransient
-    public Collection<PersonalDetails> getPersonalDetailsCollection() {
-        return personalDetailsCollection;
-    }
-
-    public void setPersonalDetailsCollection(Collection<PersonalDetails> personalDetailsCollection) {
-        this.personalDetailsCollection = personalDetailsCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -201,6 +197,15 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.nhn.pojo.User[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<PersonalDetails> getPersonalDetailsCollection() {
+        return personalDetailsCollection;
+    }
+
+    public void setPersonalDetailsCollection(Collection<PersonalDetails> personalDetailsCollection) {
+        this.personalDetailsCollection = personalDetailsCollection;
     }
     
 }

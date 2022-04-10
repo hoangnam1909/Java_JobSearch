@@ -1,9 +1,3 @@
-<%-- 
-    Document   : header
-    Created on : Apr 4, 2022, 11:37:40 PM
-    Author     : Lightning
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -19,7 +13,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/" />">Trang chủ</a>
+                <a class="nav-link" href="<c:url value="/" />">Trang chủ}</a>
             </li>
 
             <li class="nav-item">
@@ -39,7 +33,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/logout" />">
-                            Đăng xuất
+                        Đăng xuất
                     </a>
                 </li>
             </c:if>

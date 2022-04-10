@@ -25,9 +25,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/admin/admin-account"/> ">Tài khoản</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/admin/admin-company"/> ">Công ty</a>
-            </li>
             <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/" />">
