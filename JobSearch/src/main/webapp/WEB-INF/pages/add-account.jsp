@@ -4,7 +4,7 @@
 
 <h1 class="text-center text-success">THÊM TÀI KHOẢN</h1>
 
-<c:url value="/admin/admin-account/add-account" var="action" />
+<c:url value="/admin/account/add" var="action" />
 
 <c:if test="${errMsg != null}">
     <div class="alert alert-danger">

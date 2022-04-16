@@ -3,11 +3,8 @@
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/admin-account/add-account"/>">Thêm</a>
+        <a class="nav-link" href="<c:url value="/admin/account/add"/>">Thêm</a>
     </li>
-    <%--    <li class="nav-item">--%>
-    <%--        <a class="nav-link" href="<c:url value="/admin/admin-account/edit-account"/>">Sửa</a>--%>
-    <%--    </li>--%>
 </ul>
 
 <table class="table table-striped">
@@ -24,10 +21,10 @@
     <c:forEach items="${users}" var="u">
         <tr>
             <td style="text-align: center">
-                <a style="margin-right: 10px" href="/JobSearch/admin/admin-account/edit-account/${u.id}" data-toggle="tooltip" title="Sửa">
+                <a style="margin-right: 10px" href="/JobSearch/admin/account/edit/${u.id}" data-toggle="tooltip" title="Sửa">
                     <i class="fa-solid fa-pen"></i>
                 </a>
-                <a href="/JobSearch/admin/admin-account/delete-account/${u.id}" data-toggle="tooltip" title="Xoá">
+                <a href="/JobSearch/admin/account/delete/${u.id}" data-toggle="tooltip" title="Xoá">
                     <i class="fa-solid fa-trash"></i>
                 </a>
             </td>

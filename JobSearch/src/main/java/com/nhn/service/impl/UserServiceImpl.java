@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUser(User user) {
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         return this.userRepository.updateUser(user);
     }
 

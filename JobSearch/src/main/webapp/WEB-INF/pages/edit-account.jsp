@@ -9,12 +9,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<h1 class="text-center text-success">CHỈNH SỬA THÔNG TIN TÀI KHOẢN ${user.username}</h1>
-<h1 class="text-center text-success">username ${u.username}</h1>
-<h1 class="text-center text-success">phone ${u.phone}</h1>
-<h1 class="text-center text-success">email ${u.email}</h1>
+<h1 class="text-center text-success">CHỈNH SỬA THÔNG TIN TÀI KHOẢN</h1>
 
-<c:url value="/admin/admin-account/edit-account" var="action" />
+<c:url value="/admin/account/edit" var="action" />
 
 <c:if test="${errMsg != null}">
     <div class="alert alert-danger">
@@ -34,10 +31,6 @@
     <div class="form-group">
         <label>Mật khẩu</label>
         <form:input path="password" class="form-control" type="password" />
-    </div>
-    <div class="form-group">
-        <label>Nhập lại mật khẩu</label>
-        <form:input path="confirmPassword" class="form-control" type="password" />
     </div>
     <div class="form-group">
         <label>Email</label>

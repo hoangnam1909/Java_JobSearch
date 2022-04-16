@@ -28,6 +28,8 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public User getUserById(int id) {

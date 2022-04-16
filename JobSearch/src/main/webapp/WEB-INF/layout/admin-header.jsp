@@ -23,7 +23,10 @@
                 <a class="nav-link" href="<c:url value="/" />">Trang chủ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/admin/admin-account"/> ">Tài khoản</a>
+                <a class="nav-link" href="<c:url value="/admin/account"/> ">Tài khoản</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value="/admin/jobs"/> ">Việc làm</a>
             </li>
             <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <li class="nav-item">

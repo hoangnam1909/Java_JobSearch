@@ -25,7 +25,7 @@ public class AdminAccount {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/admin/admin-account")
+    @RequestMapping("/admin/account")
     public String index(Model model) {
         List<User> users = userService.getUsers("");
 
@@ -35,13 +35,13 @@ public class AdminAccount {
         return "admin-account";
     }
 
-    @RequestMapping("/admin/admin-account/add-account")
+    @RequestMapping("/admin/account/add")
     public String addAccount(Model model) {
         model.addAttribute("user", new User());
         return "add-account";
     }
 
-    @PostMapping("/admin/admin-account/add-account")
+    @PostMapping("/admin/account/add")
     @Transactional
     public String addAccountPost(Model model, @ModelAttribute(value = "user") User user) {
         String errMsg = "";
@@ -56,7 +56,7 @@ public class AdminAccount {
         if (user.getPassword().equals(user.getConfirmPassword())) {
             errMsg = "Mat khau khop";
             this.userService.addUser(user);
-            return "redirect:/admin/admin-account/add-account";
+            return "redirect:/admin/account/add";
         } else
             errMsg = "Mat khau KHONG khop!";
 
@@ -65,31 +65,22 @@ public class AdminAccount {
         return "add-account";
     }
 
-    @PostMapping("/admin/admin-account/edit-account")
+    @RequestMapping("/admin/account/edit")
+    public String editAccount() {
+        return "redirect:/admin/account";
+    }
+
+    @PostMapping("/admin/account/edit")
     @Transactional
     public String editAccountPost(Model model,
                                   @ModelAttribute(value = "user") User user) {
         String errMsg = "";
 
-        if (user.getPassword().equals(user.getConfirmPassword())) {
-            this.userService.updateUser(user);
-            return "redirect:/admin/admin-account";
-        } else
-            errMsg = "Mat khau KHONG khop!";
-
-
-        model.addAttribute("errMsg", errMsg);
-
-        return "edit-account";
+        this.userService.updateUser(user);
+        return "redirect:/admin/account";
     }
 
-//    @RequestMapping(path = "/admin/admin-account/edit-account", method = RequestMethod.POST)
-//    public String editAccount(Model model) {
-//        model.addAttribute("user", new User());
-//        return "edit-account";
-//    }
-
-    @RequestMapping("/admin/admin-account/edit-account/{id}")
+    @RequestMapping("/admin/account/edit/{id}")
     public String editAccountGetById(Model model,
                                      @PathVariable(value = "id") int id) {
         User user = new User();
@@ -103,14 +94,13 @@ public class AdminAccount {
         return "edit-account";
     }
 
-//    @RequestMapping("/admin/admin-account/delete-account")
-//    public String deleteAccount(Model model) {
-//        model.addAttribute("user", new User());
-//        return "delete-account";
-//    }
+    @RequestMapping("/admin/account/delete")
+    public String deleteAccount() {
+        return "redirect:/admin/account";
+    }
 
-    @RequestMapping(path = "/admin/admin-account/delete-account/{id}")
-    public String deleteAccountGetById(Model model,
+    @RequestMapping(path = "/admin/account/delete/{id}")
+    public String deleteAccountById(Model model,
                                        @PathVariable(value = "id") int id,
                                        final RedirectAttributes redirectAttrs) {
         User user = new User();
@@ -130,6 +120,6 @@ public class AdminAccount {
 
         redirectAttrs.addFlashAttribute("alert", alert);
 
-        return "redirect:/admin/admin-account";
+        return "redirect:/admin/account";
     }
 }
