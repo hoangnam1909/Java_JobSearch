@@ -14,7 +14,7 @@
 <h1 class="text-center text-success">phone ${u.phone}</h1>
 <h1 class="text-center text-success">email ${u.email}</h1>
 
-<c:url value="/admin/admin-account/add-account" var="action" />
+<c:url value="/admin/admin-account/edit-account" var="action" />
 
 <c:if test="${errMsg != null}">
     <div class="alert alert-danger">
@@ -23,6 +23,10 @@
 </c:if>
 
 <form:form action="${action}" method="post" modelAttribute="user">
+    <div class="form-group">
+        <label>id</label>
+        <form:input path="id" class="form-control" placeholder="${user.id}" />
+    </div>
     <div class="form-group">
         <label>Tên đăng nhập</label>
         <form:input path="username" class="form-control" placeholder="${user.username}" />
@@ -48,6 +52,6 @@
         <form:input path="userType" class="form-control" placeholder="${user.userType}" />
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
     </div>
 </form:form>

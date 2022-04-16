@@ -66,4 +66,30 @@ public class UserRepositoryImpl implements UserRepository {
         return q.getResultList();
     }
 
+    @Override
+    public boolean deleteUser(User user) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.delete(user);
+            return true;
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.update(user);
+
+            return true;
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        return false;
+    }
+
 }

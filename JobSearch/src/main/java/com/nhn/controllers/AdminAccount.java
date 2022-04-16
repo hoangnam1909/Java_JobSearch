@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -27,10 +28,9 @@ public class AdminAccount {
     @RequestMapping("/admin/admin-account")
     public String index(Model model) {
         List<User> users = userService.getUsers("");
-        model.addAttribute("users", users);
 
-//        User firstUser = userService.getUserById(7);
-//        model.addAttribute("firstUser", firstUser);
+        model.addAttribute("users", users);
+        model.addAttribute("alert", model.asMap().get("alert"));
 
         return "admin-account";
     }
@@ -65,18 +65,27 @@ public class AdminAccount {
         return "add-account";
     }
 
-    @RequestMapping("/admin/admin-account/edit-account")
-    public String editAccount(Model model) {
-        model.addAttribute("user", new User());
+    @PostMapping("/admin/admin-account/edit-account")
+    @Transactional
+    public String editAccountPost(Model model,
+                                  @ModelAttribute(value = "user") User user) {
+        String errMsg = "";
+
+        if (user.getPassword().equals(user.getConfirmPassword())) {
+            this.userService.updateUser(user);
+            return "redirect:/admin/admin-account";
+        } else
+            errMsg = "Mat khau KHONG khop!";
+
+
+        model.addAttribute("errMsg", errMsg);
+
         return "edit-account";
     }
 
-//    @RequestMapping("/admin/admin-account/edit-account/{username}")
-//    public String editAccountGet(Model model,
-//                              @PathVariable(value = "username") String username) {
-//        model.addAttribute("user", this.userService.getUsers(username));
-////        model.addAttribute("user", new User());
-//        model.addAttribute("id", username);
+//    @RequestMapping(path = "/admin/admin-account/edit-account", method = RequestMethod.POST)
+//    public String editAccount(Model model) {
+//        model.addAttribute("user", new User());
 //        return "edit-account";
 //    }
 
@@ -92,5 +101,35 @@ public class AdminAccount {
         model.addAttribute("id", id);
 
         return "edit-account";
+    }
+
+//    @RequestMapping("/admin/admin-account/delete-account")
+//    public String deleteAccount(Model model) {
+//        model.addAttribute("user", new User());
+//        return "delete-account";
+//    }
+
+    @RequestMapping(path = "/admin/admin-account/delete-account/{id}")
+    public String deleteAccountGetById(Model model,
+                                       @PathVariable(value = "id") int id,
+                                       final RedirectAttributes redirectAttrs) {
+        User user = new User();
+        String alert = null;
+        if (id != 0) {
+            user = this.userService.getUserById(id);
+        }
+
+        boolean deleteCheck = false;
+        deleteCheck = userService.deleteUser(user);
+
+        if (user != null && deleteCheck) {
+            alert = String.format("Xoa thanh cong user %s", user.getUsername());
+        } else {
+            alert = "Xoa khong thanh cong";
+        }
+
+        redirectAttrs.addFlashAttribute("alert", alert);
+
+        return "redirect:/admin/admin-account";
     }
 }

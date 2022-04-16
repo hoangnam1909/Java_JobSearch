@@ -45,4 +45,8 @@ and open the template in the editor.
         <put-attribute name="title" value="Sửa thông tin tài khoản" />
         <put-attribute name="content" value="/WEB-INF/pages/edit-account.jsp" />
     </definition>
+    <definition name="delete-account" extends="adminLayout">
+        <put-attribute name="title" value="Xoá tài khoản" />
+        <put-attribute name="content" value="/WEB-INF/pages/delete-account.jsp" />
+    </definition>
 </tiles-definitions>
