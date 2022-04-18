@@ -5,13 +5,24 @@
  */
 package com.nhn.pojo;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
 
 /**
  *
@@ -25,7 +36,7 @@ import java.util.Date;
     @NamedQuery(name = "JobPost.findById", query = "SELECT j FROM JobPost j WHERE j.id = :id"),
     @NamedQuery(name = "JobPost.findByCreatedDate", query = "SELECT j FROM JobPost j WHERE j.createdDate = :createdDate"),
     @NamedQuery(name = "JobPost.findByUpdatedDate", query = "SELECT j FROM JobPost j WHERE j.updatedDate = :updatedDate"),
-    @NamedQuery(name = "JobPost.findByJobTitle", query = "SELECT j FROM JobPost j WHERE j.jobTitle = :jobTitle"),
+    @NamedQuery(name = "JobPost.findByTitle", query = "SELECT j FROM JobPost j WHERE j.title = :title"),
     @NamedQuery(name = "JobPost.findByActive", query = "SELECT j FROM JobPost j WHERE j.active = :active")})
 public class JobPost implements Serializable {
 
@@ -42,12 +53,12 @@ public class JobPost implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
     @Size(max = 100)
-    @Column(name = "job_title")
-    private String jobTitle;
+    @Column(name = "title")
+    private String title;
     @Lob
     @Size(max = 2147483647)
-    @Column(name = "job_description")
-    private String jobDescription;
+    @Column(name = "description")
+    private String description;
     @Column(name = "active")
     private Boolean active;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
@@ -59,11 +70,6 @@ public class JobPost implements Serializable {
     @JoinColumn(name = "job_type_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private JobType jobTypeId;
-    @JoinColumn(name = "posted_by_user", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private User postedByUser;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobPostId")
-    private Collection<JobPostSkill> jobPostSkillCollection;
 
     public JobPost() {
     }
@@ -96,20 +102,20 @@ public class JobPost implements Serializable {
         this.updatedDate = updatedDate;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getJobDescription() {
-        return jobDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Boolean getActive() {
@@ -142,23 +148,6 @@ public class JobPost implements Serializable {
 
     public void setJobTypeId(JobType jobTypeId) {
         this.jobTypeId = jobTypeId;
-    }
-
-    public User getPostedByUser() {
-        return postedByUser;
-    }
-
-    public void setPostedByUser(User postedByUser) {
-        this.postedByUser = postedByUser;
-    }
-
-    @XmlTransient
-    public Collection<JobPostSkill> getJobPostSkillCollection() {
-        return jobPostSkillCollection;
-    }
-
-    public void setJobPostSkillCollection(Collection<JobPostSkill> jobPostSkillCollection) {
-        this.jobPostSkillCollection = jobPostSkillCollection;
     }
 
     @Override
