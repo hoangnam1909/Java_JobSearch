@@ -5,22 +5,13 @@
  */
 package com.nhn.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -70,6 +61,31 @@ public class JobPost implements Serializable {
     @JoinColumn(name = "job_type_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private JobType jobTypeId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "posted_by_user", nullable = false)
+    private User postedByUser;
+    @JsonIgnore
+    @Transient
+    private int postedByUserId;
+
+    @OneToMany(mappedBy = "jobPost")
+    private Set<JobPostSkill> jobPostSkills = new LinkedHashSet<>();
+
+    public Set<JobPostSkill> getJobPostSkills() {
+        return jobPostSkills;
+    }
+
+    public void setJobPostSkills(Set<JobPostSkill> jobPostSkills) {
+        this.jobPostSkills = jobPostSkills;
+    }
+
+    public User getPostedByUser() {
+        return postedByUser;
+    }
+
+    public void setPostedByUser(User postedByUser) {
+        this.postedByUser = postedByUser;
+    }
 
     public JobPost() {
     }
@@ -148,6 +164,14 @@ public class JobPost implements Serializable {
 
     public void setJobTypeId(JobType jobTypeId) {
         this.jobTypeId = jobTypeId;
+    }
+
+    public int getPostedByUserId() {
+        return postedByUserId;
+    }
+
+    public void setPostedByUserId(int postedByUserId) {
+        this.postedByUserId = postedByUserId;
     }
 
     @Override

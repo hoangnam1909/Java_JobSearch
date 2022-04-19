@@ -4,7 +4,7 @@
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/account/add"/>">Thêm</a>
+        <a class="nav-link" href="<c:url value="/admin/job-post/add"/>">Thêm</a>
     </li>
 </ul>
 
