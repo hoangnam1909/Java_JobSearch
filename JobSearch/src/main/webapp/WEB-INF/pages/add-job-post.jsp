@@ -5,8 +5,9 @@
 <h1 class="text-center text-success">THÊM BÀI VIẾT</h1>
 <h3 class="text-center text-success">${title}</h3>
 <h3 class="text-center text-success">${description}</h3>
-<%--<h3 class="text-center text-success">${postByUserId}</h3>--%>
-<%--<h3 class="text-center text-success">${jobTypes[0].name}</h3>--%>
+<h3 class="text-center text-success">${postByUserId}</h3>
+<h3 class="text-center text-success">${jobTypeId}</h3>
+<h3 class="text-center text-success">${companyId}</h3>
 
 <c:url value="/admin/job-post/add" var="action"/>
 

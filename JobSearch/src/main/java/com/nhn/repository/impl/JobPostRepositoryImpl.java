@@ -101,7 +101,7 @@ public class JobPostRepositoryImpl implements JobPostRepository {
             int max = 10;
             int index = (page - 1) * max;
             query.setFirstResult(index);
-            query.setMaxResults(3);
+            query.setMaxResults(max);
         }
 
         return query.getResultList();

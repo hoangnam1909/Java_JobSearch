@@ -1,5 +1,7 @@
 package com.nhn.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,10 @@ public class User {
 
     @Column(name = "password", nullable = false, length = 100)
     private String password;
+
+    @JsonIgnore
+    @Transient
+    private String confirmPassword;
 
     @Column(name = "email", nullable = false, length = 64)
     private String email;
@@ -77,6 +83,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getUsername() {

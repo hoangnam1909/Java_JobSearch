@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -47,9 +48,9 @@ public class AdminJobPost {
     public String addJobPost(Model model) {
         List<User> users = userService.getUsers("");
         model.addAttribute("users", users);
-        List<JobType> jobTypes  = jobTypeService.getJobTypes("");
+        List<JobType> jobTypes = jobTypeService.getJobTypes("");
         model.addAttribute("jobTypes", jobTypes);
-        List<Company> companies  = companyService.getCompanies(null, 0);
+        List<Company> companies = companyService.getCompanies(null, 0);
         model.addAttribute("companies", companies);
 
         model.addAttribute("jobPost", new JobPost());
@@ -59,19 +60,29 @@ public class AdminJobPost {
 
     @PostMapping("/admin/job-post/add")
     @Transactional
-    public String addJobPost(Model model, @ModelAttribute(value = "jobPost") JobPost jobPost) {
-        String errMsg = null;
+    public String addJobPost(Model model,
+                             @ModelAttribute(value = "jobPost") JobPost jobPost,
+                             final RedirectAttributes redirectAttrs) {
+        String msg = null;
 
         model.addAttribute("title", jobPost.getTitle());
         model.addAttribute("description", jobPost.getDescription());
-//        model.addAttribute("postByUserId", jobPost.getPostedByUserId());
+        model.addAttribute("postByUserId", jobPost.getPostedByUserId());
+        model.addAttribute("jobTypeId", jobPost.getJobTypeId());
+        model.addAttribute("companyId", jobPost.getCompanyId());
 
-//        jobPost.setPostedByUser(userService.getUserById(jobPost.getPostedByUserId()));
-//        this.jobPostService.addPost(jobPost);
+        jobPost.setPostedByUser(userService.getUserById(jobPost.getPostedByUserId()));
+        jobPost.setJobType(jobTypeService.getJobTypeById(jobPost.getJobTypeId()));
+        jobPost.setCompany(companyService.getCompanyById(jobPost.getCompanyId()));
 
-        model.addAttribute("errMsg", errMsg);
+        boolean jobPostAddedCheck = this.jobPostService.addPost(jobPost);
 
-//        return "redirect:/admin/job-post";
-        return "add-job-post";
+        if (jobPostAddedCheck)
+            msg = String.format("Thêm thành công bài viết #%d", jobPost.getId());
+        else
+            msg = "Thêm bài viết thất bại";
+
+        redirectAttrs.addFlashAttribute("msg", msg);
+        return "redirect:/admin/job-post";
     }
 }

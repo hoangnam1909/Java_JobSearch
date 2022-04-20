@@ -25,9 +25,9 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
-  `commentcol` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `commentcol` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,13 +48,13 @@ DROP TABLE IF EXISTS `company`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `company` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contact` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `location` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `website` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `contact` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `location` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `website` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +63,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
+INSERT INTO `company` VALUES (1,'KMS Technology','kms','kms@gmail.com','Ho Chi Minh City','kms.com'),(2,'TMA Solutions','tma','tma@gmail.com','Ho Chi Minh City','tma.com');
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -75,14 +76,14 @@ DROP TABLE IF EXISTS `employer`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `employer` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `website` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `website` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_employer_user_idx` (`user_id`),
   CONSTRAINT `fk_user_employer` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,33 +96,6 @@ LOCK TABLES `employer` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `job_location`
---
-
-DROP TABLE IF EXISTS `job_location`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `job_location` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `street_address` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `district` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `zip` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `job_location`
---
-
-LOCK TABLES `job_location` WRITE;
-/*!40000 ALTER TABLE `job_location` DISABLE KEYS */;
-/*!40000 ALTER TABLE `job_location` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `job_post`
 --
 
@@ -130,25 +104,23 @@ DROP TABLE IF EXISTS `job_post`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `job_post` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `posted_by_user` int NOT NULL,
+  `posted_by_user_id` int NOT NULL,
   `job_type_id` int NOT NULL,
   `company_id` int NOT NULL,
   `created_date` datetime DEFAULT NULL,
   `updated_date` datetime DEFAULT NULL,
-  `job_title` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `job_description` longtext COLLATE utf8mb4_unicode_ci,
-  `job_location_id` int DEFAULT NULL,
-  `active` bit(1) DEFAULT NULL,
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci,
+  `job_location` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `active` tinyint DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `fk_post_by_user_idx` (`posted_by_user`),
-  KEY `fk_job_type_idx` (`job_type_id`),
+  KEY `fk_post_by_user_idx` (`posted_by_user_id`),
   KEY `fk_company_idx` (`company_id`),
-  KEY `fk_job_location_idx` (`job_location_id`),
+  KEY `fk_job_type_idx` (`job_type_id`),
   CONSTRAINT `fk_company` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`),
-  CONSTRAINT `fk_job_location` FOREIGN KEY (`job_location_id`) REFERENCES `job_location` (`id`),
   CONSTRAINT `fk_job_type` FOREIGN KEY (`job_type_id`) REFERENCES `job_type` (`id`),
-  CONSTRAINT `fk_post_by_user` FOREIGN KEY (`posted_by_user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `fk_post_by_user_id` FOREIGN KEY (`posted_by_user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,6 +129,7 @@ CREATE TABLE `job_post` (
 
 LOCK TABLES `job_post` WRITE;
 /*!40000 ALTER TABLE `job_post` DISABLE KEYS */;
+INSERT INTO `job_post` VALUES (1,1,1,1,'2022-04-18 00:00:00',NULL,'Web bán hàng',NULL,NULL,1),(2,6,2,1,NULL,NULL,'Dá»n vá» sinh','Dá»n háº¿t cmn toÃ  Landmark 81',NULL,NULL),(3,1,1,2,NULL,NULL,'hÃ¡ hÃ¡','hÃ´ hÃ´',NULL,NULL),(4,1,1,2,NULL,NULL,'hÃ¡ hÃ¡ hÃ¡','hÃ¡ hÃ¡ hÃ¡',NULL,NULL);
 /*!40000 ALTER TABLE `job_post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +149,7 @@ CREATE TABLE `job_post_skill` (
   KEY `fk_skill_id_idx` (`skill_id`),
   CONSTRAINT `fk_job_post_id` FOREIGN KEY (`job_post_id`) REFERENCES `job_post` (`id`),
   CONSTRAINT `fk_skill_id` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,10 +169,10 @@ DROP TABLE IF EXISTS `job_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `job_type` (
-  `id` int NOT NULL,
-  `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,6 +181,7 @@ CREATE TABLE `job_type` (
 
 LOCK TABLES `job_type` WRITE;
 /*!40000 ALTER TABLE `job_type` DISABLE KEYS */;
+INSERT INTO `job_type` VALUES (1,'Công nghệ thông tin'),(2,'Bán cà phê'),(3,'Phục vụ nhà hàng'),(4,'Tele sale'),(5,'Bán quần áo');
 /*!40000 ALTER TABLE `job_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,17 +194,17 @@ DROP TABLE IF EXISTS `personal_details`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `personal_details` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `last_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `gender` bit(1) NOT NULL,
   `dob` date NOT NULL,
-  `nationality` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nationality` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `phone` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_personal_user_id_idx` (`user_id`),
   CONSTRAINT `fk_personal_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,9 +225,9 @@ DROP TABLE IF EXISTS `skill`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `skill` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,11 +254,10 @@ CREATE TABLE `user` (
   `phone` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `active` bit(1) NOT NULL DEFAULT b'1',
   `avatar` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `userType` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `firstName` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `lastName` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `userType` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +266,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','$2a$12$uq.Pw2EsHna6mJuOjjg3le02vEusLx.c5xZ5Co8BNFhXznmO4iXyG','admin@gmail.com','123',_binary '','haha','1','Hoang','Nam'),(2,'ntd','ntd','ntd@gmail.com','13545',_binary '',NULL,'1','Hoang','Anh');
+INSERT INTO `user` VALUES (1,'admin','$2a$10$eduRMgYPrASSjz.jzXFgg.JQGQj3zcnMTeQz5NTfIKZfwCK8U8bdC','admin@gmail.com','123',_binary '\0',NULL,'1'),(6,'hihi','$2a$10$UsXDlqsL75M6uO/7SYUgBeygtZ73UAAIQCFeCM82xcW.RgS.AIdA6','hihi','hihi',_binary '\0',NULL,'hihi'),(17,'hihihupdate','$2a$10$9VtHlvNA.0LN5cW7aKnYueAtI6Xd0NP8rAMm07weealAmsUmXpUT.','hihi','hihi',_binary '\0',NULL,'hihi');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -306,4 +279,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-08 22:49:44
+-- Dump completed on 2022-04-20 23:59:11
