@@ -33,22 +33,16 @@
             </c:forEach>
         </form:select>
     </div>
+
     <div class="form-group">
-        <label>Loại công việc</label>
+        <label>Đăng bởi người dùng</label>
         <form:select path="jobTypeId" class="custom-select">
             <c:forEach items="${jobTypes}" var="jobType">
                 <form:option value="${jobType.id}" label="${jobType.name}"/>
             </c:forEach>
         </form:select>
     </div>
-    <div class="form-group">
-        <label>Công ty</label>
-        <form:select path="companyId" class="custom-select">
-            <c:forEach items="${companies}" var="company">
-                <form:option value="${company.id}" label="${company.name}"/>
-            </c:forEach>
-        </form:select>
-    </div>
+
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Thêm bài viết</button>
     </div>

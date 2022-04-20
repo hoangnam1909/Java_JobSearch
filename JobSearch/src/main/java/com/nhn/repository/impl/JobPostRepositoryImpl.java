@@ -97,10 +97,12 @@ public class JobPostRepositoryImpl implements JobPostRepository {
 
         Query query = session.createQuery(q);
 
-        int max = 10;
-        int index = (page - 1) * max;
-        query.setFirstResult(index);
-        query.setMaxResults(3);
+        if (page != 0) {
+            int max = 10;
+            int index = (page - 1) * max;
+            query.setFirstResult(index);
+            query.setMaxResults(3);
+        }
 
         return query.getResultList();
     }

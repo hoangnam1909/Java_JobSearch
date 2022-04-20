@@ -59,14 +59,17 @@ public class JobPost implements Serializable {
     @ManyToOne
     private JobLocation jobLocationId;
     @JoinColumn(name = "job_type_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private JobType jobTypeId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private JobType jobType;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "posted_by_user", nullable = false)
     private User postedByUser;
     @JsonIgnore
     @Transient
     private int postedByUserId;
+    @JsonIgnore
+    @Transient
+    private int jobTypeId;
 
     @OneToMany(mappedBy = "jobPost")
     private Set<JobPostSkill> jobPostSkills = new LinkedHashSet<>();
@@ -158,11 +161,19 @@ public class JobPost implements Serializable {
         this.jobLocationId = jobLocationId;
     }
 
-    public JobType getJobTypeId() {
+    public JobType getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(JobType jobType) {
+        this.jobType = jobType;
+    }
+
+    public int getJobTypeId() {
         return jobTypeId;
     }
 
-    public void setJobTypeId(JobType jobTypeId) {
+    public void setJobTypeId(int jobTypeId) {
         this.jobTypeId = jobTypeId;
     }
 

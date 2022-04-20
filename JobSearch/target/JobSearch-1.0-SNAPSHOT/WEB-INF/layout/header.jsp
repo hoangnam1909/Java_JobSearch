@@ -1,10 +1,4 @@
-<%-- 
-    Document   : header
-    Created on : Apr 4, 2022, 11:37:40 PM
-    Author     : Lightning
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
@@ -23,12 +17,26 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/login" />">Đăng nhập</a>
-            </li>
-            
-            <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/admin" />">Admin</a>
             </li>
+
+            <c:if test="${pageContext.request.userPrincipal.name == null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/login" />">Đăng nhập</a>
+                </li>
+            </c:if>
+            <c:if test="${pageContext.request.userPrincipal.name != null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/" />">
+                            ${pageContext.request.userPrincipal.name}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/logout" />">
+                        Đăng xuất
+                    </a>
+                </li>
+            </c:if>
         </ul>
     </div>
     <form class="form-inline" action="">

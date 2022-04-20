@@ -13,6 +13,7 @@
     <class>com.nhn.pojo.JobLocation</class>
     <class>com.nhn.pojo.Company</class>
     <class>com.nhn.pojo.User</class>
+    <class>com.nhn.pojo.JobPostTest</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jobdb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
