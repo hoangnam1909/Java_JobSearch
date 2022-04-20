@@ -3,5 +3,7 @@
   <component name="JpaBuddyIdeaProjectConfig">
     <option name="defaultUnitInitialized" value="true" />
     <option name="reverseEngineeringLastDbConnectionId" value="8cce7316-fc0c-49bb-8d6c-847b3e401b7a" />
+    <option name="reLastEntityCreationPackage" value="src/main/java/com/nhn/pojo" />
+    <option name="newEntityIdStrategy" />
   </component>
 </project>

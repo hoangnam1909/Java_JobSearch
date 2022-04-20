@@ -48,17 +48,17 @@ public class AdminAccount {
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("password", user.getPassword());
-        model.addAttribute("confirmPassword", user.getConfirmPassword());
+//        model.addAttribute("confirmPassword", user.getConfirmPassword());
         model.addAttribute("email", user.getEmail());
         model.addAttribute("phone", user.getPhone());
         model.addAttribute("userType", user.getUserType());
 
-        if (user.getPassword().equals(user.getConfirmPassword())) {
-            errMsg = "Mat khau khop";
-            this.userService.addUser(user);
-            return "redirect:/admin/account/add";
-        } else
-            errMsg = "Mat khau KHONG khop!";
+//        if (user.getPassword().equals(user.getConfirmPassword())) {
+//            errMsg = "Mat khau khop";
+//            this.userService.addUser(user);
+//            return "redirect:/admin/account/add";
+//        } else
+//            errMsg = "Mat khau KHONG khop!";
 
         model.addAttribute("errMsg", errMsg);
 

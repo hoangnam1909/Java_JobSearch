@@ -64,13 +64,14 @@ public class AdminJobPost {
 
         model.addAttribute("title", jobPost.getTitle());
         model.addAttribute("description", jobPost.getDescription());
-        model.addAttribute("postByUserId", jobPost.getPostedByUserId());
+//        model.addAttribute("postByUserId", jobPost.getPostedByUserId());
 
-        jobPost.setPostedByUser(userService.getUserById(jobPost.getPostedByUserId()));
-        this.jobPostService.addPost(jobPost);
+//        jobPost.setPostedByUser(userService.getUserById(jobPost.getPostedByUserId()));
+//        this.jobPostService.addPost(jobPost);
 
         model.addAttribute("errMsg", errMsg);
 
-        return "redirect:/admin/job-post";
+//        return "redirect:/admin/job-post";
+        return "add-job-post";
     }
 }
