@@ -19,51 +19,54 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- *
  * @author Lightning
  */
 @Configuration
 @PropertySource("classpath:database.properties")
 public class HibernateConfig {
-    
+
     @Autowired
     private Environment env;
-    
+
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
         factory.setPackagesToScan("com.nhn.pojo");
         factory.setDataSource(dataSource());
         factory.setHibernateProperties(hibernateProperties());
-        
+
         return factory;
     }
-    
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource d = new DriverManagerDataSource();
+
         d.setDriverClassName(env.getProperty("hibernate.connection.driverClass"));
         d.setUrl(env.getProperty("hibernate.connection.url"));
         d.setUsername(env.getProperty("hibernate.connection.username"));
         d.setPassword(env.getProperty("hibernate.connection.password"));
-        
+
         return d;
     }
-    
-    public Properties hibernateProperties() {
+
+    private Properties hibernateProperties() {
         Properties props = new Properties();
-        props.setProperty(AvailableSettings.DIALECT, env.getProperty("hibernate.dialect"));
-        props.setProperty(AvailableSettings.SHOW_SQL, env.getProperty("hibernate.showSql"));
-        
+        props.setProperty(org.hibernate.cfg.Environment.DIALECT,
+                env.getProperty("hibernate.dialect"));
+        props.setProperty(org.hibernate.cfg.Environment.SHOW_SQL,
+                env.getProperty("hibernate.showSql"));
+
         return props;
     }
-    
+
     @Bean
     public HibernateTransactionManager transactionManager() {
-        HibernateTransactionManager m = new HibernateTransactionManager();
-        m.setSessionFactory(getSessionFactory().getObject());
-        
-        return m;
+        HibernateTransactionManager manager = new HibernateTransactionManager();
+
+        manager.setSessionFactory(getSessionFactory().getObject());
+
+        return manager;
     }
-    
+
 }

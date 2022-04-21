@@ -28,7 +28,7 @@ import org.springframework.web.servlet.view.JstlView;
     "com.nhn.repository",
     "com.nhn.service"
 })
-public class WebAppContextConfigs implements WebMvcConfigurer {
+public class WebApplicationContextConfig implements WebMvcConfigurer {
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -45,11 +45,11 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
         return resolver;
     }
 
-//    @Bean
-//    public CommonsMultipartResolver multipartResolver() {
-//        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-//        resolver.setDefaultEncoding("UTF-8");
-//
-//        return resolver;
-//    }
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setDefaultEncoding("UTF-8");
+
+        return resolver;
+    }
 }

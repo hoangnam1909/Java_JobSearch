@@ -31,7 +31,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
         "com.nhn.service",
-        "com.nhn.repository"
+        "com.nhn.repository",
+        "com.nhn.controllers",
+        "com.nhn.configs.handlers"
 })
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
